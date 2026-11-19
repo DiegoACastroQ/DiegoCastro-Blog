@@ -49,14 +49,30 @@ h1, h2, h3, h4, h5, h6 {
 :root{
     --bg-color: #ffffff;
     --text-color: #222222;
+    --logo-Color:#b61818;
 }
 body.nightMode{
-    --bg-color: #000000;
-    --text-color: #e0e0e0;
+    --bg-color: #0a0a0a;
+    --bg-color-dark:color-mix(in srgb,var(--bg-color),#222222 5%);
+    --text-color: #e2dddd;
+    --logo-Color:#fcf6f6;
 }
+
 body{
+  --bg-color-dark:color-mix(in srgb,var(--bg-color),black 15%);
     background-color: var(--bg-color);
     color: var(--text-color);
+}
+@media (prefers-reduced-motion: no-preference) {
+    body,
+    body * {
+        transition:
+            background-color 400ms linear,
+            color 400ms linear,
+            border-color 400ms linear,
+            fill 400ms linear,
+            stroke 400ms linear;
+    }
 }
 /* Main Header */
 
@@ -65,7 +81,9 @@ body{
     flex-direction: row;
     flex-wrap: nowrap;
     display: flex;
+    border-bottom: var(--bg-color-dark) solid 3px;
     background-color: var(--bg-color);
+    box-shadow: #0a0a0a 4px;
     
 }
 /* Logo */
@@ -77,6 +95,10 @@ body{
     height: auto;
     padding: 10px;
 }
+ #Logo{
+  color: var(--logo-Color);
+}
+
 .example{
     width: 100%;
     max-width: 150px;
@@ -103,16 +125,17 @@ body{
     font-weight: 400;
 }
 #mainHeaderLinks{
+  
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
-    gap: 8px;
+    gap: 5px;
     min-width: 0;
 }
 #mainHeaderLinks a{
     flex: 1 1 auto;
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-size: clamp(1rem, 2vw, 1.2rem);
     white-space: nowrap;
     text-decoration: none;
     color: var(--text-color);
@@ -126,6 +149,9 @@ body{
     justify-content: flex-start;
 }
 #mainHeaderButtons{
+  position:absolute;
+  top: 0;
+  right: 0;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
@@ -136,12 +162,22 @@ body{
 }
 #mainHeaderButtons button{
     flex: 0 1 auto;
+    width: min(45%,100px);
+    height: min(30%,40px);
     min-width: 0;
     padding-inline: clamp(0.2rem, 1vw, 0.5rem);
-    font: size 1.6em;;
+    border: none;
+    background-color: transparent;
+    color: var(--text-color);
+}
+.icon{
+    width: 1.6em;
+    height: 1.6em;
 }
 /* Hero */
 #mainHero{
+    position: relative;
+    isolation: isolate;
     min-width: auto;
     width: 100%;
     padding: 2rem;
@@ -149,11 +185,24 @@ body{
     background-color: #b10202;
     color: #ffffff;
 }
-#mainHero.nightMode{
-    background-color: #222222;
-    background-image: linear-gradient(315deg, #222222 0%, #640101 100%);
+#mainHero::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(to bottom, var(--bg-color-dark) 0%,color-mix(in srgb,var(--bg-color-dark),#640101 30%) 60%, #660202 100%);
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+body.nightMode #mainHero::before{
+    transform: scaleY(1);
+}
+@media (prefers-reduced-motion: no-preference) {
+    #mainHero::before {
+        transition: transform 400ms ease;
+    }
 }
 #mainHeroContent{
-   
     margin: 0 auto;
 }
