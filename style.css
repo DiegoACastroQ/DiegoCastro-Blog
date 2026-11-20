@@ -180,7 +180,7 @@ body{
     isolation: isolate;
     min-width: auto;
     width: 100%;
-    padding: 2rem;
+    padding: 4vh min(4%,12vh);
     margin: 0 auto;
     background-color: #b10202;
     color: #ffffff;
@@ -205,4 +205,41 @@ body.nightMode #mainHero::before{
 }
 #mainHeroContent{
     margin: 0 auto;
+}
+.learning, #stateGrid{
+    width: min(100%, 48rem);
+    height:  clamp(200px,30vw,350px);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+.card{
+    color: var(--text-color);
+    box-shadow: 7px 5px 5px #000000 ;
+    border: var(--bg-color-dark),solid, 3px;
+    background-color: color-mix(in srgb,var(--bg-color), #000000 5%);
+
+}
+body.nightMode .card{
+    background-color: color-mix(in srgb,var(--bg-color), #000000 15%);
+
+}
+.learning .card{
+    min-width: 0;
+    width: 100%;
+    height: min(96%,25vh);
+}
+/* State */
+#mainContent{
+    margin: 4vw;
+}
+body.nightMode #mainContent .card{
+    background-color: color-mix(in srgb,var(--bg-color), #000000 25%);
+
+}
+.contentFirst{
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
